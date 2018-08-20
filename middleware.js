@@ -2,9 +2,6 @@ const express = require('express');
 
 var app = express();
 
-// server up a directory
-app.use(express.static(__dirname + '\\Public'));
-
 // next tells when the middleware function is done
 // look like this middleware function will run before anything else
 app.use((req, res, next) => {
@@ -21,6 +18,9 @@ app.use((req, res, next) => {
     res.send('<html><body><h1>We will be right back</h1></body></html>');
     // because we never call next(), hello world doesn't render
 });
+
+// putting this after the middleware functions, so that it's private until next() is called
+app.use(express.static(__dirname + '\\Public'));
 
 app.get('/', (req, res) => {
     res.send('Whatever! ' + __dirname);
